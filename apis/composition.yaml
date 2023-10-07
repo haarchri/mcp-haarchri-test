@@ -43,11 +43,19 @@ spec:
     - base:
         apiVersion: kubernetes.crossplane.io/v1alpha1
         kind: ProviderConfig
-        metadata:
-          name: default
         spec:
           credentials:
             source: InjectedIdentity
-      name: providerConfig
+      name: providerConfigs
+      patches:
+        - fromFieldPath: spec.parameters.package
+          toFieldPath: metadata.name
+          transforms:
+            - type: match
+              match:
+                patterns:
+                  - type: regexp
+                    regexp: '.*'
+                    result: default
       readinessChecks:
         - type: None
