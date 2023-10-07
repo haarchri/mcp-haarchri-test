@@ -39,3 +39,15 @@ spec:
         - type: MatchString
           fieldPath: status.conditions[0].status
           matchString: "True"
+
+    - base:
+        apiVersion: kubernetes.crossplane.io/v1alpha1
+        kind: ProviderConfig
+        metadata:
+          name: default
+        spec:
+          credentials:
+            source: InjectedIdentity
+      name: providerConfig
+      readinessChecks:
+        - type: None
